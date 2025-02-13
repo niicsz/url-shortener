@@ -17,7 +17,7 @@ public class UrlController {
     @PostMapping("/shorten")
     public ResponseEntity<String> shortenUrl(@RequestParam String url) {
         String shortUrl = urlService.generateShortUrl(url);
-        return ResponseEntity.ok("http://localhost:8080/api/url/" + shortUrl);
+        return ResponseEntity.ok("https://url-shortener.up.railway.app/api/url/" + shortUrl);
     }
 
     @GetMapping("/{shortUrl}")
