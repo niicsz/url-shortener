@@ -14,5 +14,3 @@ Um encurtador de URLs simples feito com **Spring Boot**, **Spring Data JPA**
 
 ## 🔥 Melhorias Futuras  
 ✅ Melhorar o sistema de geração de URLs curtas  
-✅ Criar uma interface web para encurtar URLs  
-✅ Adicionar autenticação para usuários  
