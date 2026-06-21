@@ -1,0 +1,113 @@
+openapi: 3.0.3
+info:
+  title: BiniTech URL Shortener API
+  description: Encurtador de URLs baseado em Cassandra (store), Redis (contador e cache) e Hashids/Base62.
+  version: 1.0.0
+
+servers:
+  - url: http://localhost:8080
+    description: Servidor local de desenvolvimento
+
+tags:
+  - name: Urls
+    description: Encurtamento e estatísticas de URLs
+
+paths:
+  /api/v1/shorten:
+    post:
+      tags: [Urls]
+      summary: Encurtar uma URL longa
+      operationId: shortenUrl
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ShortenUrlRequest'
+      responses:
+        '201':
+          description: URL encurtada com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ShortenUrlResponse'
+        '400':
+          description: URL inválida
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDTO'
+
+  /api/v1/stats/{shortCode}:
+    get:
+      tags: [Urls]
+      summary: Consultar estatísticas de um short code
+      operationId: getUrlStats
+      parameters:
+        - name: shortCode
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Estatísticas encontradas
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UrlStatsDTO'
+        '404':
+          description: Short code não encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDTO'
+
+components:
+  schemas:
+    ShortenUrlRequest:
+      type: object
+      required: [url]
+      properties:
+        url:
+          type: string
+          maxLength: 2048
+          example: https://www.example.com/some/very/long/path?with=query
+
+    ShortenUrlResponse:
+      type: object
+      required: [shortCode, shortUrl]
+      properties:
+        shortCode:
+          type: string
+          example: kVj9pQ2
+        shortUrl:
+          type: string
+          example: http://localhost:8080/kVj9pQ2
+
+    UrlStatsDTO:
+      type: object
+      required: [shortCode, longUrl, createdAt, clicks]
+      properties:
+        shortCode:
+          type: string
+        longUrl:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        clicks:
+          type: integer
+          format: int64
+
+    ErrorDTO:
+      type: object
+      required: [code, message, timestamp]
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        timestamp:
+          type: string
+          format: date-time
