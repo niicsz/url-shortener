@@ -14,7 +14,6 @@ import com.binitech.shortener.domain.exception.ResourceNotFoundException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.time.LocalDateTime;
-import java.util.Locale;
 import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -114,7 +113,7 @@ public class ShortenUrlUseCaseImpl implements ShortenUrlUseCasePort {
       throw new InvalidUrlException(
           "A URL excede o tamanho máximo de " + MAX_URL_LENGTH + " caracteres.");
     }
-    String candidate = hasHttpScheme(trimmed) ? trimmed : "https://" + trimmed;
+    String candidate = hasScheme(trimmed) ? trimmed : "https://" + trimmed;
     URI uri;
     try {
       uri = new URI(candidate);
@@ -131,9 +130,8 @@ public class ShortenUrlUseCaseImpl implements ShortenUrlUseCasePort {
     return candidate;
   }
 
-  private boolean hasHttpScheme(String url) {
-    String lower = url.toLowerCase(Locale.ROOT);
-    return lower.startsWith("http://") || lower.startsWith("https://");
+  private boolean hasScheme(String url) {
+    return url.matches("(?i)^[a-z][a-z0-9+.-]*://.*");
   }
 
   private String stripTrailingSlash(String value) {
