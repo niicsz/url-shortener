@@ -1,0 +1,58 @@
+spring:
+  application:
+    name: url-shortener
+  threads:
+    virtual:
+      enabled: true
+  cassandra:
+    contact-points: ${CASSANDRA_CONTACT_POINTS:127.0.0.1}
+    port: ${CASSANDRA_PORT:9042}
+    local-datacenter: ${CASSANDRA_LOCAL_DATACENTER:datacenter1}
+    request:
+      timeout: 15s
+    connection:
+      connect-timeout: 15s
+      init-query-timeout: 15s
+  data:
+    redis:
+      url: ${REDIS_URL:redis://localhost:6379}
+
+server:
+  port: ${PORT:8080}
+
+shortener:
+  base-url: ${SHORTENER_BASE_URL:http://localhost:8080}
+  keyspace: ${SHORTENER_KEYSPACE:url_shortener}
+  salt: ${SHORTENER_SALT:binitech-url-shortener}
+  min-length: ${SHORTENER_MIN_LENGTH:7}
+  alphabet: ${SHORTENER_ALPHABET:0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ}
+  initial-id: ${SHORTENER_INITIAL_ID:14000000}
+  counter-key: ${SHORTENER_COUNTER_KEY:url:counter}
+  cache-ttl: ${SHORTENER_CACHE_TTL:24h}
+  replication-factor: ${SHORTENER_REPLICATION_FACTOR:1}
+
+cors:
+  allowed-origins: ${CORS_ALLOWED_ORIGINS:http://localhost:4200}
+
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    operationsSorter: method
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+      base-path: /actuator
+  endpoint:
+    health:
+      probes:
+        enabled: true
+  health:
+    livenessstate:
+      enabled: true
+    readinessstate:
+      enabled: true
