@@ -122,8 +122,7 @@ public class ShortenUrlUseCaseImpl implements ShortenUrlUseCasePort {
       throw new InvalidUrlException("URL inválida.");
     }
     String scheme = uri.getScheme();
-    if (scheme == null
-        || !(scheme.equalsIgnoreCase("http") || scheme.equalsIgnoreCase("https"))) {
+    if (scheme == null || !(scheme.equalsIgnoreCase("http") || scheme.equalsIgnoreCase("https"))) {
       throw new InvalidUrlException("Apenas URLs http e https são suportadas.");
     }
     if (uri.getHost() == null || uri.getHost().isBlank()) {
