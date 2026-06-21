@@ -1,0 +1,84 @@
+@use '@angular/material' as mat;
+
+$theme: mat.define-theme((
+  color: (
+    theme-type: light,
+    primary: mat.$azure-palette,
+    tertiary: mat.$cyan-palette,
+  ),
+  typography: (
+    brand-family: 'Inter, Roboto, sans-serif',
+    plain-family: 'Inter, Roboto, sans-serif',
+  ),
+  density: (
+    scale: 0,
+  ),
+));
+
+html {
+  @include mat.all-component-themes($theme);
+  @include mat.typography-hierarchy($theme);
+  color-scheme: light;
+}
+
+:root {
+  --brand: #1565c0;
+  --brand-strong: #0d47a1;
+  --surface: #ffffff;
+  --bg: #eef2f7;
+  --ink: #15233a;
+  --muted: #5b6b7f;
+  --border: #dce4ee;
+  --radius: 18px;
+  --shadow: 0 12px 34px rgba(20, 45, 90, 0.10);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  background:
+    radial-gradient(1200px 620px at 100% -12%, #d8e7fb 0%, transparent 55%),
+    radial-gradient(900px 520px at -12% -4%, #e3f9f3 0%, transparent 48%),
+    var(--bg);
+  color: var(--ink);
+  font-family: 'Inter', 'Roboto', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.page {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 36px 20px 72px;
+}
+
+.surface {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.muted {
+  color: var(--muted);
+}
+
+.mono {
+  font-family: 'Roboto Mono', ui-monospace, monospace;
+}
+
+a {
+  color: var(--brand);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
