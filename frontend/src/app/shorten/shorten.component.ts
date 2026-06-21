@@ -28,7 +28,6 @@ import { RecentLink, ShortenResponse } from '../shared/models/short-url.model';
   template: `
     <section class="page">
       <header class="hero">
-        <p class="eyebrow">BiniTech • System Design</p>
         <h1>Encurte qualquer URL em <span>Base62</span>.</h1>
         <p class="muted lead">
           Códigos de 7 caracteres gerados por um contador atômico no Redis e ofuscados com Hashids,
@@ -110,14 +109,6 @@ import { RecentLink, ShortenResponse } from '../shared/models/short-url.model';
     .hero {
       text-align: center;
       margin: 18px 0 28px;
-    }
-    .eyebrow {
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      font-size: 0.72rem;
-      font-weight: 700;
-      color: var(--brand);
-      margin: 0 0 10px;
     }
     .hero h1 {
       font-size: clamp(1.9rem, 4vw, 2.9rem);
